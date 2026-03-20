@@ -11,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { EditPlanField } from "@/components/treatment-plan/edit-plan-field";
 import type { TherapistView } from "@/lib/types";
 
 export default async function TherapistPlanPage({
@@ -99,8 +100,16 @@ export default async function TherapistPlanPage({
         <>
           {/* Presenting Concerns */}
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-lg">Presenting Concerns</CardTitle>
+              {currentVersion && (
+                <EditPlanField
+                  planId={id}
+                  versionId={currentVersion.id}
+                  field="presenting_concerns"
+                  currentValue={tv.presenting_concerns.join("\n")}
+                />
+              )}
             </CardHeader>
             <CardContent>
               <ul className="space-y-1">
@@ -115,16 +124,24 @@ export default async function TherapistPlanPage({
           </Card>
 
           {/* Clinical Impressions */}
-          {tv.clinical_impressions && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Clinical Impressions</CardTitle>
-              </CardHeader>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-lg">Clinical Impressions</CardTitle>
+              {currentVersion && (
+                <EditPlanField
+                  planId={id}
+                  versionId={currentVersion.id}
+                  field="clinical_impressions"
+                  currentValue={tv.clinical_impressions || ""}
+                />
+              )}
+            </CardHeader>
+            {tv.clinical_impressions && (
               <CardContent>
                 <p className="text-sm">{tv.clinical_impressions}</p>
               </CardContent>
-            </Card>
-          )}
+            )}
+          </Card>
 
           {/* Goals */}
           <Card>
