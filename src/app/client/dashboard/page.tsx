@@ -44,7 +44,7 @@ export default async function ClientDashboard() {
     .from("treatment_plans")
     .select(`
       *,
-      current_version:treatment_plan_versions!treatment_plans_current_version_id_fkey(*)
+      current_version:treatment_plan_versions!fk_current_version(*)
     `)
     .eq("client_id", clientProfile.id)
     .single();
