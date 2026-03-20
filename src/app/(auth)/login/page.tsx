@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import {
   Card,
   CardContent,
@@ -15,6 +16,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+const DEMO_ACCOUNTS = [
+  { email: "therapist@demo.com", password: "demo1234", label: "Therapist", role: "Dr. Sarah Chen" },
+  { email: "client@demo.com", password: "demo1234", label: "Client", role: "Marcus Johnson" },
+];
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -110,6 +116,30 @@ export default function LoginPage() {
                 Register
               </Link>
             </p>
+            <Separator />
+            <div className="w-full space-y-3">
+              <p className="text-sm text-muted-foreground text-center">
+                Demo accounts
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {DEMO_ACCOUNTS.map((account) => (
+                  <button
+                    key={account.email}
+                    type="button"
+                    onClick={() => {
+                      setEmail(account.email);
+                      setPassword(account.password);
+                    }}
+                    className="rounded-lg border p-3 text-center hover:border-primary/50 hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="text-sm font-medium">{account.email}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {account.label}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
           </CardFooter>
         </form>
       </Card>
