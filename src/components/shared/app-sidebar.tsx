@@ -40,7 +40,8 @@ export function AppSidebar({
 
   async function handleSignOut() {
     await supabase.auth.signOut();
-    router.push("/login");
+    router.push("/");
+    router.refresh();
   }
 
   return (
